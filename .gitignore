@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Custom
+config_private.py
+3dparty/
+dssr-*.*
+
 # Distribution / packaging
 .Python
 build/

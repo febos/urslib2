@@ -1,0 +1,674 @@
+RESIDUE   A       37
+CONECT      OP3    2 P    HOP3
+CONECT      P      4 OP3  OP1  OP2  O5' 
+CONECT      OP1    1 P   
+CONECT      OP2    2 P    HOP2
+CONECT      O5'    2 P    C5' 
+CONECT      C5'    4 O5'  C4'  H5'  H5''
+CONECT      C4'    4 C5'  O4'  C3'  H4' 
+CONECT      O4'    2 C4'  C1' 
+CONECT      C3'    4 C4'  O3'  C2'  H3' 
+CONECT      O3'    2 C3'  HO3'
+CONECT      C2'    4 C3'  O2'  C1'  H2' 
+CONECT      O2'    2 C2'  HO2'
+CONECT      C1'    4 O4'  C2'  N9   H1' 
+CONECT      N9     3 C1'  C8   C4  
+CONECT      C8     3 N9   N7   H8  
+CONECT      N7     2 C8   C5  
+CONECT      C5     3 N7   C6   C4  
+CONECT      C6     3 C5   N6   N1  
+CONECT      N6     3 C6   H61  H62 
+CONECT      N1     2 C6   C2  
+CONECT      C2     3 N1   N3   H2  
+CONECT      N3     2 C2   C4  
+CONECT      C4     3 N9   C5   N3  
+CONECT      HOP3   1 OP3 
+CONECT      HOP2   1 OP2 
+CONECT      H5'    1 C5' 
+CONECT      H5''   1 C5' 
+CONECT      H4'    1 C4' 
+CONECT      H3'    1 C3' 
+CONECT      HO3'   1 O3' 
+CONECT      H2'    1 C2' 
+CONECT      HO2'   1 O2' 
+CONECT      H1'    1 C1' 
+CONECT      H8     1 C8  
+CONECT      H61    1 N6  
+CONECT      H62    1 N6  
+CONECT      H2     1 C2  
+END   
+HET    A               37
+HETNAM     A   ADENOSINE-5'-MONOPHOSPHATE
+FORMUL      A      C10 H14 N5 O7 P1
+
+RESIDUE   ALA     13
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   HB1  HB2  HB3 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB1    1 CB  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HXT    1 OXT 
+END   
+HET    ALA             13
+HETNAM     ALA ALANINE
+FORMUL      ALA    C3 H7 N1 O2
+
+RESIDUE   ARG     27
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD   HG2  HG3 
+CONECT      CD     4 CG   NE   HD2  HD3 
+CONECT      NE     3 CD   CZ   HE  
+CONECT      CZ     3 NE   NH1  NH2 
+CONECT      NH1    3 CZ   HH11 HH12
+CONECT      NH2    3 CZ   HH21 HH22
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HD2    1 CD  
+CONECT      HD3    1 CD  
+CONECT      HE     1 NE  
+CONECT      HH11   1 NH1 
+CONECT      HH12   1 NH1 
+CONECT      HH21   1 NH2 
+CONECT      HH22   1 NH2 
+CONECT      HXT    1 OXT 
+END   
+HET    ARG             27
+HETNAM     ARG ARGININE
+FORMUL      ARG    C6 H15 N4 O2 1+
+
+RESIDUE   ASN     17
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   OD1  ND2 
+CONECT      OD1    1 CG  
+CONECT      ND2    3 CG   HD21 HD22
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD21   1 ND2 
+CONECT      HD22   1 ND2 
+CONECT      HXT    1 OXT 
+END   
+HET    ASN             17
+HETNAM     ASN ASPARAGINE
+FORMUL      ASN    C4 H8 N2 O3
+
+RESIDUE   ASP     16
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   OD1  OD2 
+CONECT      OD1    1 CG  
+CONECT      OD2    2 CG   HD2 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD2    1 OD2 
+CONECT      HXT    1 OXT 
+END   
+HET    ASP             16
+HETNAM     ASP ASPARTIC ACID
+FORMUL      ASP    C4 H7 N1 O4
+
+RESIDUE   C       35
+CONECT      OP3    2 P    HOP3
+CONECT      P      4 OP3  OP1  OP2  O5' 
+CONECT      OP1    1 P   
+CONECT      OP2    2 P    HOP2
+CONECT      O5'    2 P    C5' 
+CONECT      C5'    4 O5'  C4'  H5'  H5''
+CONECT      C4'    4 C5'  O4'  C3'  H4' 
+CONECT      O4'    2 C4'  C1' 
+CONECT      C3'    4 C4'  O3'  C2'  H3' 
+CONECT      O3'    2 C3'  HO3'
+CONECT      C2'    4 C3'  O2'  C1'  H2' 
+CONECT      O2'    2 C2'  HO2'
+CONECT      C1'    4 O4'  C2'  N1   H1' 
+CONECT      N1     3 C1'  C2   C6  
+CONECT      C2     3 N1   O2   N3  
+CONECT      O2     1 C2  
+CONECT      N3     2 C2   C4  
+CONECT      C4     3 N3   N4   C5  
+CONECT      N4     3 C4   H41  H42 
+CONECT      C5     3 C4   C6   H5  
+CONECT      C6     3 N1   C5   H6  
+CONECT      HOP3   1 OP3 
+CONECT      HOP2   1 OP2 
+CONECT      H5'    1 C5' 
+CONECT      H5''   1 C5' 
+CONECT      H4'    1 C4' 
+CONECT      H3'    1 C3' 
+CONECT      HO3'   1 O3' 
+CONECT      H2'    1 C2' 
+CONECT      HO2'   1 O2' 
+CONECT      H1'    1 C1' 
+CONECT      H41    1 N4  
+CONECT      H42    1 N4  
+CONECT      H5     1 C5  
+CONECT      H6     1 C6  
+END   
+HET    C               35
+HETNAM     C   CYTIDINE-5'-MONOPHOSPHATE
+FORMUL      C      C9 H14 N3 O8 P1
+
+RESIDUE   CYS     14
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   SG   HB2  HB3 
+CONECT      SG     2 CB   HG  
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG     1 SG  
+CONECT      HXT    1 OXT 
+END   
+HET    CYS             14
+HETNAM     CYS CYSTEINE
+FORMUL      CYS    C3 H7 N1 O2 S1
+
+RESIDUE   G       38
+CONECT      OP3    2 P    HOP3
+CONECT      P      4 OP3  OP1  OP2  O5' 
+CONECT      OP1    1 P   
+CONECT      OP2    2 P    HOP2
+CONECT      O5'    2 P    C5' 
+CONECT      C5'    4 O5'  C4'  H5'  H5''
+CONECT      C4'    4 C5'  O4'  C3'  H4' 
+CONECT      O4'    2 C4'  C1' 
+CONECT      C3'    4 C4'  O3'  C2'  H3' 
+CONECT      O3'    2 C3'  HO3'
+CONECT      C2'    4 C3'  O2'  C1'  H2' 
+CONECT      O2'    2 C2'  HO2'
+CONECT      C1'    4 O4'  C2'  N9   H1' 
+CONECT      N9     3 C1'  C8   C4  
+CONECT      C8     3 N9   N7   H8  
+CONECT      N7     2 C8   C5  
+CONECT      C5     3 N7   C6   C4  
+CONECT      C6     3 C5   O6   N1  
+CONECT      O6     1 C6  
+CONECT      N1     3 C6   C2   H1  
+CONECT      C2     3 N1   N2   N3  
+CONECT      N2     3 C2   H21  H22 
+CONECT      N3     2 C2   C4  
+CONECT      C4     3 N9   C5   N3  
+CONECT      HOP3   1 OP3 
+CONECT      HOP2   1 OP2 
+CONECT      H5'    1 C5' 
+CONECT      H5''   1 C5' 
+CONECT      H4'    1 C4' 
+CONECT      H3'    1 C3' 
+CONECT      HO3'   1 O3' 
+CONECT      H2'    1 C2' 
+CONECT      HO2'   1 O2' 
+CONECT      H1'    1 C1' 
+CONECT      H8     1 C8  
+CONECT      H1     1 N1  
+CONECT      H21    1 N2  
+CONECT      H22    1 N2  
+END   
+HET    G               38
+HETNAM     G   GUANOSINE-5'-MONOPHOSPHATE
+FORMUL      G      C10 H14 N5 O8 P1
+
+RESIDUE   GLN     20
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD   HG2  HG3 
+CONECT      CD     3 CG   OE1  NE2 
+CONECT      OE1    1 CD  
+CONECT      NE2    3 CD   HE21 HE22
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HE21   1 NE2 
+CONECT      HE22   1 NE2 
+CONECT      HXT    1 OXT 
+END   
+HET    GLN             20
+HETNAM     GLN GLUTAMINE
+FORMUL      GLN    C5 H10 N2 O3
+
+RESIDUE   GLU     19
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD   HG2  HG3 
+CONECT      CD     3 CG   OE1  OE2 
+CONECT      OE1    1 CD  
+CONECT      OE2    2 CD   HE2 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HE2    1 OE2 
+CONECT      HXT    1 OXT 
+END   
+HET    GLU             19
+HETNAM     GLU GLUTAMIC ACID
+FORMUL      GLU    C5 H9 N1 O4
+
+RESIDUE   GLY     10
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    HA2  HA3 
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA2    1 CA  
+CONECT      HA3    1 CA  
+CONECT      HXT    1 OXT 
+END   
+HET    GLY             10
+HETNAM     GLY GLYCINE
+FORMUL      GLY    C2 H5 N1 O2
+
+RESIDUE   HIS     21
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   ND1  CD2 
+CONECT      ND1    3 CG   CE1  HD1 
+CONECT      CD2    3 CG   NE2  HD2 
+CONECT      CE1    3 ND1  NE2  HE1 
+CONECT      NE2    3 CD2  CE1  HE2 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD1    1 ND1 
+CONECT      HD2    1 CD2 
+CONECT      HE1    1 CE1 
+CONECT      HE2    1 NE2 
+CONECT      HXT    1 OXT 
+END   
+HET    HIS             21
+HETNAM     HIS HISTIDINE
+FORMUL      HIS    C6 H10 N3 O2 1+
+
+RESIDUE   ILE     22
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG1  CG2  HB  
+CONECT      CG1    4 CB   CD1  HG12 HG13
+CONECT      CG2    4 CB   HG21 HG22 HG23
+CONECT      CD1    4 CG1  HD11 HD12 HD13
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB     1 CB  
+CONECT      HG12   1 CG1 
+CONECT      HG13   1 CG1 
+CONECT      HG21   1 CG2 
+CONECT      HG22   1 CG2 
+CONECT      HG23   1 CG2 
+CONECT      HD11   1 CD1 
+CONECT      HD12   1 CD1 
+CONECT      HD13   1 CD1 
+CONECT      HXT    1 OXT 
+END   
+HET    ILE             22
+HETNAM     ILE ISOLEUCINE
+FORMUL      ILE    C6 H13 N1 O2
+
+RESIDUE   LEU     22
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD1  CD2  HG  
+CONECT      CD1    4 CG   HD11 HD12 HD13
+CONECT      CD2    4 CG   HD21 HD22 HD23
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG     1 CG  
+CONECT      HD11   1 CD1 
+CONECT      HD12   1 CD1 
+CONECT      HD13   1 CD1 
+CONECT      HD21   1 CD2 
+CONECT      HD22   1 CD2 
+CONECT      HD23   1 CD2 
+CONECT      HXT    1 OXT 
+END   
+HET    LEU             22
+HETNAM     LEU LEUCINE
+FORMUL      LEU    C6 H13 N1 O2
+
+RESIDUE   LYS     25
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD   HG2  HG3 
+CONECT      CD     4 CG   CE   HD2  HD3 
+CONECT      CE     4 CD   NZ   HE2  HE3 
+CONECT      NZ     4 CE   HZ1  HZ2  HZ3 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HD2    1 CD  
+CONECT      HD3    1 CD  
+CONECT      HE2    1 CE  
+CONECT      HE3    1 CE  
+CONECT      HZ1    1 NZ  
+CONECT      HZ2    1 NZ  
+CONECT      HZ3    1 NZ  
+CONECT      HXT    1 OXT 
+END   
+HET    LYS             25
+HETNAM     LYS LYSINE
+FORMUL      LYS    C6 H15 N2 O2 1+
+
+RESIDUE   MET     20
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   SD   HG2  HG3 
+CONECT      SD     2 CG   CE  
+CONECT      CE     4 SD   HE1  HE2  HE3 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HE1    1 CE  
+CONECT      HE2    1 CE  
+CONECT      HE3    1 CE  
+CONECT      HXT    1 OXT 
+END   
+HET    MET             20
+HETNAM     MET METHIONINE
+FORMUL      MET    C5 H11 N1 O2 S1
+
+RESIDUE   PHE     23
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   CD1  CD2 
+CONECT      CD1    3 CG   CE1  HD1 
+CONECT      CD2    3 CG   CE2  HD2 
+CONECT      CE1    3 CD1  CZ   HE1 
+CONECT      CE2    3 CD2  CZ   HE2 
+CONECT      CZ     3 CE1  CE2  HZ  
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD1    1 CD1 
+CONECT      HD2    1 CD2 
+CONECT      HE1    1 CE1 
+CONECT      HE2    1 CE2 
+CONECT      HZ     1 CZ  
+CONECT      HXT    1 OXT 
+END   
+HET    PHE             23
+HETNAM     PHE PHENYLALANINE
+FORMUL      PHE    C9 H11 N1 O2
+
+RESIDUE   PRO     17
+CONECT      N      3 CA   CD   H   
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     4 CB   CD   HG2  HG3 
+CONECT      CD     4 N    CG   HD2  HD3 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG2    1 CG  
+CONECT      HG3    1 CG  
+CONECT      HD2    1 CD  
+CONECT      HD3    1 CD  
+CONECT      HXT    1 OXT 
+END   
+HET    PRO             17
+HETNAM     PRO PROLINE
+FORMUL      PRO    C5 H9 N1 O2
+
+RESIDUE   SER     14
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   OG   HB2  HB3 
+CONECT      OG     2 CB   HG  
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HG     1 OG  
+CONECT      HXT    1 OXT 
+END   
+HET    SER             14
+HETNAM     SER SERINE
+FORMUL      SER    C3 H7 N1 O3
+
+RESIDUE   THR     17
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   OG1  CG2  HB  
+CONECT      OG1    2 CB   HG1 
+CONECT      CG2    4 CB   HG21 HG22 HG23
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB     1 CB  
+CONECT      HG1    1 OG1 
+CONECT      HG21   1 CG2 
+CONECT      HG22   1 CG2 
+CONECT      HG23   1 CG2 
+CONECT      HXT    1 OXT 
+END   
+HET    THR             17
+HETNAM     THR THREONINE
+FORMUL      THR    C4 H9 N1 O3
+
+RESIDUE   TRP     27
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   CD1  CD2 
+CONECT      CD1    3 CG   NE1  HD1 
+CONECT      CD2    3 CG   CE2  CE3 
+CONECT      NE1    3 CD1  CE2  HE1 
+CONECT      CE2    3 CD2  NE1  CZ2 
+CONECT      CE3    3 CD2  CZ3  HE3 
+CONECT      CZ2    3 CE2  CH2  HZ2 
+CONECT      CZ3    3 CE3  CH2  HZ3 
+CONECT      CH2    3 CZ2  CZ3  HH2 
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD1    1 CD1 
+CONECT      HE1    1 NE1 
+CONECT      HE3    1 CE3 
+CONECT      HZ2    1 CZ2 
+CONECT      HZ3    1 CZ3 
+CONECT      HH2    1 CH2 
+CONECT      HXT    1 OXT 
+END   
+HET    TRP             27
+HETNAM     TRP TRYPTOPHAN
+FORMUL      TRP    C11 H12 N2 O2
+
+RESIDUE   TYR     24
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG   HB2  HB3 
+CONECT      CG     3 CB   CD1  CD2 
+CONECT      CD1    3 CG   CE1  HD1 
+CONECT      CD2    3 CG   CE2  HD2 
+CONECT      CE1    3 CD1  CZ   HE1 
+CONECT      CE2    3 CD2  CZ   HE2 
+CONECT      CZ     3 CE1  CE2  OH  
+CONECT      OH     2 CZ   HH  
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB2    1 CB  
+CONECT      HB3    1 CB  
+CONECT      HD1    1 CD1 
+CONECT      HD2    1 CD2 
+CONECT      HE1    1 CE1 
+CONECT      HE2    1 CE2 
+CONECT      HH     1 OH  
+CONECT      HXT    1 OXT 
+END   
+HET    TYR             24
+HETNAM     TYR TYROSINE
+FORMUL      TYR    C9 H11 N1 O3
+
+RESIDUE   U       34
+CONECT      OP3    2 P    HOP3
+CONECT      P      4 OP3  OP1  OP2  O5' 
+CONECT      OP1    1 P   
+CONECT      OP2    2 P    HOP2
+CONECT      O5'    2 P    C5' 
+CONECT      C5'    4 O5'  C4'  H5'  H5''
+CONECT      C4'    4 C5'  O4'  C3'  H4' 
+CONECT      O4'    2 C4'  C1' 
+CONECT      C3'    4 C4'  O3'  C2'  H3' 
+CONECT      O3'    2 C3'  HO3'
+CONECT      C2'    4 C3'  O2'  C1'  H2' 
+CONECT      O2'    2 C2'  HO2'
+CONECT      C1'    4 O4'  C2'  N1   H1' 
+CONECT      N1     3 C1'  C2   C6  
+CONECT      C2     3 N1   O2   N3  
+CONECT      O2     1 C2  
+CONECT      N3     3 C2   C4   H3  
+CONECT      C4     3 N3   O4   C5  
+CONECT      O4     1 C4  
+CONECT      C5     3 C4   C6   H5  
+CONECT      C6     3 N1   C5   H6  
+CONECT      HOP3   1 OP3 
+CONECT      HOP2   1 OP2 
+CONECT      H5'    1 C5' 
+CONECT      H5''   1 C5' 
+CONECT      H4'    1 C4' 
+CONECT      H3'    1 C3' 
+CONECT      HO3'   1 O3' 
+CONECT      H2'    1 C2' 
+CONECT      HO2'   1 O2' 
+CONECT      H1'    1 C1' 
+CONECT      H3     1 N3  
+CONECT      H5     1 C5  
+CONECT      H6     1 C6  
+END   
+HET    U               34
+HETNAM     U   URIDINE-5'-MONOPHOSPHATE
+FORMUL      U      C9 H13 N2 O9 P1
+
+RESIDUE   VAL     19
+CONECT      N      3 CA   H    H2  
+CONECT      CA     4 N    C    CB   HA  
+CONECT      C      3 CA   O    OXT 
+CONECT      O      1 C   
+CONECT      CB     4 CA   CG1  CG2  HB  
+CONECT      CG1    4 CB   HG11 HG12 HG13
+CONECT      CG2    4 CB   HG21 HG22 HG23
+CONECT      OXT    2 C    HXT 
+CONECT      H      1 N   
+CONECT      H2     1 N   
+CONECT      HA     1 CA  
+CONECT      HB     1 CB  
+CONECT      HG11   1 CG1 
+CONECT      HG12   1 CG1 
+CONECT      HG13   1 CG1 
+CONECT      HG21   1 CG2 
+CONECT      HG22   1 CG2 
+CONECT      HG23   1 CG2 
+CONECT      HXT    1 OXT 
+END   
+HET    VAL             19
+HETNAM     VAL VALINE
+FORMUL      VAL    C5 H11 N1 O2
