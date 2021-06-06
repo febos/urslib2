@@ -7,9 +7,12 @@ __pycache__/
 *.so
 
 # Custom
-config_private.py
+urslib2/config_private.py
 3dparty/
 dssr-*.*
+data/
+family.txt
+pdb_full_region.txt
 
 # Distribution / packaging
 .Python
