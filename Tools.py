@@ -956,7 +956,7 @@ def LuLone(line): # parsing from DSSR
     helix = None
     otherhel = []
 
-    if line[0] == 'n/a':
+    if line[0] in ('n/a','--'):
         pass        
     elif ',' not in line[0]:
         helix = int(line[0][2:-1])
