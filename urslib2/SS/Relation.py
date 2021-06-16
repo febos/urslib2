@@ -17,23 +17,38 @@ def ModifyStemsLoops(model): #add neighbors to stems and loops + add list 'LOOPS
 
     for lt in model.loops:
         for i in range(len(model.loops[lt])):
+
             loop = model.loops[lt][i]
+
             for tloop in loop['TLOOP']:
+
                 if 'LOOPS' not in model.threads[tloop['THREAD']-1]:
                     model.threads[tloop['THREAD']-1]['LOOPS'] = []
                 model.threads[tloop['THREAD']-1]['LOOPS'].append([lt,loop['ID'],loop['PTYPE']])
+                
             stems = []
             stems.append(loop['STEM'])
+
             for wloop in loop['WLOOP']:
+
+                if 'LOOPS' not in model.wings['LU'][wloop['WING']-1]:
+                    model.wings['LU'][wloop['WING']-1]['LOOPS'] = []
+                model.wings['LU'][wloop['WING']-1]['LOOPS'].append([lt,loop['ID'],loop['PTYPE']])
+
                 stems.append(model.wings['LU'][wloop['WING']-1]['STEM'])
+                
             for floop in loop['FLOOP']:
+
                 stems.append(floop['STEM1'])
                 stems.append(floop['STEM2'])
                 
             model.loops[lt][i]['NEIGHBORS'] = [x for x in list(set(stems)) if x!='\\N']
+
             for s in model.loops[lt][i]['NEIGHBORS']:
+
                 if 'NEIGHBORS' not in model.stems[s-1]:
                     model.stems[s-1]['NEIGHBORS'] = []
+                    
                 model.stems[s-1]['NEIGHBORS'].append([lt,loop['ID'],loop['PTYPE']])
 
     for i in range(len(model.threads)):
@@ -55,7 +70,22 @@ def ModifyStemsLoops(model): #add neighbors to stems and loops + add list 'LOOPS
 def NuclSS(self,dssr):
 
     ch,pl,i = self.dssrnucls[dssr]
-    if self.chains[ch][pl][i]['WING']: return 'S'
+    if self.chains[ch][pl][i]['WING']:
+
+        w = self.chains[ch][pl][i]['WING']
+
+        if 'LOOPS' not in self.wings['LU'][w-1]:
+
+            return 'S'
+
+        res = []
+
+        for loop in self.wings['LU'][w-1]['LOOPS']:
+            res.append(loop[0][0]+loop[2])
+
+        return 'S'+''.join(sorted(list(set(res))))
+
+    
     elif self.chains[ch][pl][i]['THREAD']:
         t = self.chains[ch][pl][i]['THREAD']
         res = []

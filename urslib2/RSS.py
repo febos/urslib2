@@ -1,17 +1,17 @@
 try:
-    from urslib2 import Merge
+    from urslib2 import Merge, Tools
     from urslib2.SS import ChainOrder, Mask
     from urslib2.SS import Wings, Stems,  Threads, Links
     from urslib2.SS import Loops, Towers, Multiplets, Sign
     from urslib2.SS import Interactions, MetalAndLigand, Relation
-    from urslib2.SS import Organism,GetMotifPDB
+    from urslib2.SS import Organism,GetMotifPDB, Interactions2
 except ImportError:
-    import Merge
+    import Merge, Tools
     from SS import ChainOrder, Mask
     from SS import Wings, Stems,  Threads,    Links
     from SS import Loops, Towers, Multiplets, Sign
     from SS import Interactions, MetalAndLigand, Relation
-    from SS import Organism,GetMotifPDB
+    from SS import Organism,GetMotifPDB, Interactions2
 
 import os
 
@@ -36,6 +36,29 @@ def SecStruct(pdbmodel, outmodel):
     GetMotifPDB.add(model)
 
     return model
+
+
+def Atompairs(model,type1 = '', type2 = '', dist = 4):
+
+    '''
+    Parameters:
+        model - object of PDB-entry, created with SecStruct function
+        type1, type2 - strings of molecule types: R = RNA, D = DNA, P = Protein, L = Ligand, M = Metal, W = Water.
+            Example: type1 = 'RD', type2 = 'MW' - find all contacts of nucleic acid atoms with metals and water
+        dist - maximal distance in angstroms
+    Returns:
+        list of pairs of close atoms of form {DSSR1:     residue1-dssrid,
+                                              DSSR2:     residue2-dssrid,
+                                            'atom1':         atomname1,
+                                            'atom2':         atomname2,
+                                             'dist':           distance,
+                                             'type':  restype1+restype2}
+    '''
+
+    restypes = {x : (Tools.restype[x] if Tools.restype[x] != 'Unknown' else 'Ligand')
+                     for x in Tools.restype.keys()}
+
+    return Interactions2.Atompairs(model,type1, type2, dist, restypes)
 
 if __name__=='__main__':
 
