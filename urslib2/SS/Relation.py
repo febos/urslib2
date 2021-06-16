@@ -97,7 +97,7 @@ def NuclSS(self,dssr):
         return 'NA'
     
 
-def NuclRelation(self,dssr1,dssr2): # dssr1,dssr2 -> SM/LC/NR/LR
+def NuclRelation(self,dssr1,dssr2): # dssr1,dssr2 -> SM/LC/NR/LR/NA
 
     ch1,pl1,i1 = self.dssrnucls[dssr1]
     ch2,pl2,i2 = self.dssrnucls[dssr2]
