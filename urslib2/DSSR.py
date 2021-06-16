@@ -34,6 +34,7 @@ def run(modelpath,outfolder):
           '-non-pair',
           '-u-turn',
           '-po4',
+          '--a-minor=N',
           '-idstr=long',
           '-i='+modelpath,
           '-o='+outfolder+outname]
@@ -109,20 +110,6 @@ def run(modelpath,outfolder):
             message += "\nIt solved the problem! " + outname + ' has been created!'
 
     else: print(outname+'\tis successfully created',end='\n')
-
-    tor = subprocess.Popen(['mv','dssr-torsions.txt',
-                            outfolder.replace('out','tor')+torname])   # move torsions file
-    tor.wait()
-
-    mult = subprocess.Popen(['mv','dssr-multiplets.pdb',
-                            outfolder.replace('out','mult')+multname])   # move multiplets file
-
-    mult.wait()
-
-    aminor = subprocess.Popen(['mv','dssr-Aminors.pdb',
-                            outfolder.replace('out','aminor')+aminorname])   # move multiplets file
-
-    aminor.wait()
 
     return error,message
 

@@ -669,7 +669,7 @@ def ResidueCIFAtom(atom): # Residue from mmcif._pdbx_poly_seq_scheme
 
 def LuA_minor(lines): # parsing from DSSR
 
-    num     = int(lines[0][:5])
+    num     = int(lines[0][:5].replace('*',''))
     first   = cut_double_spaces(lines[0][5:-1]).split(' ')
     if not first[0]: first = first[1:]
 

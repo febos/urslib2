@@ -184,6 +184,19 @@ def AnnotateLinks(model):
         link['SS2'] = model.NuclSS(dssr2)
         link['REL'] = model.NuclRelation(dssr1,dssr2)
 
+def SeqDist(self,dssr1,dssr2):
+
+    ch1,pl1,i1 = self.dssrnucls[dssr1]
+    ch2,pl2,i2 = self.dssrnucls[dssr2]
+
+    if ch1 == ch2 and pl1 == pl2 == 'RES':
+
+        return abs(i1 - i2)
+
+    else:
+
+        return -1
+
 
 def add(model):
 
@@ -192,6 +205,7 @@ def add(model):
     ModifyStemsLoops(model)
     model.NuclRelation = types.MethodType(NuclRelation,model)
     model.NuclSS = types.MethodType(NuclSS,model)
+    model.SeqDist = types.MethodType(SeqDist,model)
 
     AnnotateLinks(model)
 
