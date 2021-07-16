@@ -13,6 +13,7 @@ dssr-*.*
 data/
 family.txt
 pdb_full_region.txt
+test.ipynb
 
 # Distribution / packaging
 .Python

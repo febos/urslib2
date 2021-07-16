@@ -33,6 +33,7 @@ class Model():
         self.molecules  = pdb.molecules
         self.ids        = pdb.ids
         self.allwords   = pdb.allwords
+        self.restype    = pdb.restype
         self.bpairs     = dssr.bpairs
         self.lumults    = dssr.multiplets       
         self.helices    = dssr.helices

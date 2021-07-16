@@ -272,11 +272,14 @@ def CIFrestype(params):
               'LEAD (II) ION'     :1, 'TERBIUM(III) ION'  :1, 'RUTHENIUM ION'   :1, 'PLATINUM (IV) ION' :1}
 
     Proteins = {'PEPTIDE LINKING':1, 'L-PEPTIDE LINKING':1,'D-PEPTIDE LINKING':1,
-                'D-GAMMA-PEPTIDE, C-DELTA LINKING':1, 'L-PEPTIDE NH3 AMINO TERMINUS':1}
+                'D-GAMMA-PEPTIDE, C-DELTA LINKING':1, 'L-PEPTIDE NH3 AMINO TERMINUS':1,
+                'L-BETA-PEPTIDE, C-GAMMA LINKING':1}
 
     RNAS  = {'L-RNA LINKING':1, 'RNA LINKING':1,'RNA OH 3 PRIME TERMINUS':1}
 
-    if typ.upper() in ('NON-POLYMER','SACCHARIDE','PEPTIDE-LIKE','D-SACCHARIDE','L-SACCHARIDE'):
+    if typ.upper() in ('NON-POLYMER','SACCHARIDE','PEPTIDE-LIKE','D-SACCHARIDE','L-SACCHARIDE',
+                       'D-SACCHARIDE, ALPHA LINKING','D-SACCHARIDE, BETA LINKING',
+                       'L-SACCHARIDE, BETA LINKING'):
         if name in Metals:  return 'Metal'
         elif name=='WATER': return 'Water'
         else:               return 'Unknown'
@@ -291,8 +294,13 @@ def CIFrestype(params):
 
 def check_na(dist): # check for n/a in distances and torsions
 
-    if 'n/a' in dist: return '\\N'
-    else            : return float(dist)
+    if 'n/a' in dist or '--' in dist:
+
+        return '\\N'
+
+    else:
+
+        return float(dist)
 
 def clean_seq(value): # delete double spaces and then delete spaces from start and end of line
 

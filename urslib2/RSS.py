@@ -55,8 +55,8 @@ def Atompairs(model,type1 = '', type2 = '', dist = 4):
                                              'type':  restype1+restype2}
     '''
 
-    restypes = {x : (Tools.restype[x] if Tools.restype[x] != 'Unknown' else 'Ligand')
-                     for x in Tools.restype.keys()}
+    restypes = {x : (model.restype[x] if model.restype[x] != 'Unknown' else 'Ligand')
+                     for x in model.restype.keys()}
 
     return Interactions2.Atompairs(model,type1, type2, dist, restypes)
 
