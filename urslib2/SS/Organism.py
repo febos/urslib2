@@ -42,6 +42,7 @@ def Organism(organism):
                'reovirus':'reovirus',
                't7likevirus':'t7likevirus',
                'thermus':'thermus',
+               'phage':'phage',
                'triticum':'triticum',
                'saccharomyces':'saccharomyces',
                'streptomyces':'streptomyces',
