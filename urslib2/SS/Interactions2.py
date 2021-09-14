@@ -98,6 +98,15 @@ def Search(model, cubics, MaxDist):
 
         return (at['X']-at2['X'])**2 + (at['Y']-at2['Y'])**2 + (at['Z']-at2['Z'])**2
 
+    def EqualAltLocs(atom,atom2):
+
+        at = model.chains[atom[0]][atom[1]][atom[2]]['ATOMS'][atom[3]]
+        at2 = model.chains[atom2[0]][atom2[1]][atom2[2]]['ATOMS'][atom2[3]]
+
+        return at['ALTLOC'] == at2['ALTLOC']
+
+        
+
     potentials = []
 
     for (a,b,c) in cubics[0]:
@@ -114,7 +123,7 @@ def Search(model, cubics, MaxDist):
                             
                             distsquare = DistSquare(atom,atom2) 
 
-                            if distsquare <= MaxDist**2:
+                            if distsquare <= MaxDist**2 and EqualAltLocs(atom,atom2):
 
                                 dist = pow(distsquare,0.5)
 
