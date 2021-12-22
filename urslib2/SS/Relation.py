@@ -1,6 +1,13 @@
  
 
+def GetNuclByDSSR(model,dssr):
 
+    if 'dssrnucls' not in dir(model):
+        DSSRdict(model)
+
+    ch,place,i = model.dssrnucls[dssr]
+
+    return model.chains[ch][place][i]
 
 
 def DSSRdict(model): # add dict {dssr: (chain,index)}
