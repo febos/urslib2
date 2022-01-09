@@ -14,7 +14,7 @@ data/
 pdb_update.py
 family.txt
 pdb_full_region.txt
-test.ipynb
+test*.ipynb
 
 # Distribution / packaging
 .Python
