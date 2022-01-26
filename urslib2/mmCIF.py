@@ -182,31 +182,34 @@ class Model():
                             self.headers['DATE'] = self.mmcif_dict['_pdbx_database_status'][1][i]
                             break
                 except:
-                    self.headers['DATE'] = self.mmcif_dict['_pdbx_database_status.recvd_initial_deposition_date']
+                    if '_pdbx_database_status.recvd_initial_deposition_date' in self.mmcif_dict:
+                        self.headers['DATE'] = self.mmcif_dict['_pdbx_database_status.recvd_initial_deposition_date']
                     if self.headers['DATE'] == '?':
-                        raise ValueError('DATE is unknown')
+                        print('DATE is unknown')
 
         self.allwords[self.headers['DATE']] = 1
 
         #headers.HEADER
-        self.headers['HEADER'] = self.mmcif_dict['_struct_keywords.pdbx_keywords'].replace('&&&&&',' ').replace("'","").replace('  ',' ')
+        self.headers['HEADER'] = self.mmcif_dict['_struct_keywords.pdbx_keywords'].replace('&&&&&',' ').replace("'","").replace('  ',' ') \
+                                 if '_struct_keywords.pdbx_keywords' in self.mmcif_dict else '?'
 
         for i in self.headers['HEADER'].split():
             if i not in self.allwords: self.allwords[i] = 1
 
         #headers.PDBFILE
-        self.headers['PDBFILE'] = self.mmcif_dict['_entry.id']
+        self.headers['PDBFILE'] = self.mmcif_dict['_entry.id'] if '_entry.id' in self.mmcif_dict else '?'
 
         self.allwords[self.headers['PDBFILE']] = 1
 
         #headers.TITLE
-        self.headers['TITLE'] = CleanText(self.mmcif_dict['_struct.title'])
+        self.headers['TITLE'] = CleanText(self.mmcif_dict['_struct.title']) if '_struct.title' in self.mmcif_dict else '?'
 
         for i in self.headers['TITLE'].split():
             if i not in self.allwords: self.allwords[i] = 1
 
         #headers.KEYWDS
-        self.headers['KEYWDS'] = [CleanText(x) for x in CleanText(self.mmcif_dict['_struct_keywords.text']).split(',') if x not in ('',"'",'"',"' ",'" ')]
+        self.headers['KEYWDS'] = [CleanText(x) for x in CleanText(self.mmcif_dict['_struct_keywords.text']).split(',') if x not in ('',"'",'"',"' ",'" ')] \
+                                 if '_struct_keywords.text' in self.mmcif_dict else []
 
         for i in self.headers['KEYWDS']:
             for j in i.split():
@@ -244,7 +247,9 @@ class Model():
             self.headers['MDLTYP'].append(CleanText(self.mmcif_dict['_pdbx_coordinate_model.type'])+', CHAIN '\
                                           +CleanText(self.mmcif_dict['_pdbx_coordinate_model.asym_id']))
 
-        elif self.mmcif_dict['_struct.pdbx_model_type_details']!= '?':
+        elif '_struct.pdbx_model_type_details' in self.mmcif_dict and \
+             self.mmcif_dict['_struct.pdbx_model_type_details']!= '?':
+
             self.headers['MDLTYP'] += self.mmcif_dict['_struct.pdbx_model_type_details'].replace('&&&&&',' ').split(' ; ')
 
         if self.headers['MDLTYP'] == ['.']: self.headers['MDLTYP'] = []
@@ -257,7 +262,7 @@ class Model():
         if '_audit_author.name' in self.mmcif_dict:
             self.headers['AUTHOR'] = ''.join(self.mmcif_dict['_audit_author.name'][1:-1].split(',&&&&&')[::-1]).replace('&&&&&',' ')
 
-        else:
+        elif '_audit_author' in self.mmcif_dict:
             if   self.mmcif_dict['_audit_author'][0][0] == 'name': flag = 0
             elif self.mmcif_dict['_audit_author'][0][1] == 'name': flag = 1
 
@@ -335,8 +340,8 @@ class Model():
                  "'polydeoxyribonucleotide/polyribonucleotide&&&&&hybrid'":'RNA'} # Are you sure?
 
         r,p,d,x,y = '','','',1,4
+        
         if '_entity_poly' in self.mmcif_dict:
-
             for i in range(len(self.mmcif_dict['_entity_poly'][0])):
                 if   self.mmcif_dict['_entity_poly'][0][i]=='type': x = i
                 elif self.mmcif_dict['_entity_poly'][0][i]=='pdbx_seq_one_letter_code': y = i
@@ -347,7 +352,8 @@ class Model():
                 if   Types[ent[x]]=='RNA'    : r = 'R'
                 elif Types[ent[x]] in ('Protein','PNA'): p = 'P'
                 elif Types[ent[x]]=='DNA'    : d = 'D'
-        else:
+
+        elif '_entity_poly.type' in self.mmcif_dict:
             typ = Types[self.mmcif_dict['_entity_poly.type']]
             if self.mmcif_dict['_entity_poly.type'] not in self.allwords: self.allwords[self.mmcif_dict['_entity_poly.type']] = 1
             if self.mmcif_dict['_entity_poly.pdbx_seq_one_letter_code'] not in self.allwords:
@@ -361,7 +367,7 @@ class Model():
         del r,p,d,x
 
         # initialize MOLECULES and CHAINS
-        if '_entity_poly' not in self.mmcif_dict:
+        if '_entity_poly' not in self.mmcif_dict and '_entity_poly.entity_id' in self.mmcif_dict:
 
             mol = int(self.mmcif_dict['_entity_poly.entity_id'])
             self.molecules[mol] = Tools.Molecule(mol)
@@ -374,7 +380,7 @@ class Model():
                 self.chains[ch]['TYPE'] = Types[self.mmcif_dict['_entity_poly.type']]
             del mol,chains
 
-        else:
+        elif '_entity_poly' in self.mmcif_dict:
 
             tt = {'pdbx_strand_id':6,'type':1,'pdbx_seq_one_letter_code':4,'entity_id':0} # temp_token_indexes
 
@@ -582,74 +588,94 @@ class Model():
         # Residue Types (self.residues) - mmcif._chem_comp  ; liglist + metlist
         liglist,metlist = [],[]
 
+        if '_chem_comp' in self.mmcif_dict:
 
-        ind0 = self.mmcif_dict['_chem_comp'][0].index('id')
-        ind1 = self.mmcif_dict['_chem_comp'][0].index('type')
-        ind3 = self.mmcif_dict['_chem_comp'][0].index('name')
+            ind0 = self.mmcif_dict['_chem_comp'][0].index('id')
+            ind1 = self.mmcif_dict['_chem_comp'][0].index('type')
+            ind3 = self.mmcif_dict['_chem_comp'][0].index('name')
 
-        for ent in self.mmcif_dict['_chem_comp'][1:]:
+            for ent in self.mmcif_dict['_chem_comp'][1:]:
 
-            for j in ent:
-                for jj in CleanText(j).split():
-                    if jj not in self.allwords: self.allwords[jj] = 1
+                for j in ent:
+                    for jj in CleanText(j).split():
+                        if jj not in self.allwords: self.allwords[jj] = 1
 
-            TType = Tools.CIFrestype([CleanText(ent[ind1]),CleanText(ent[ind3])])
-            self.restype[ent[ind0]] = TType
-            if   TType=='Unknown': liglist.append(ent[ind0])
-            elif TType=='Metal'  : metlist.append(ent[ind0])
-        if liglist: self.headers['LIGLIST'] = ','+','.join(liglist)+','
-        if metlist: self.headers['METLIST'] = ','+','.join(metlist)+','
-        del liglist,metlist,TType,ind0,ind1,ind3
+                TType = Tools.CIFrestype([CleanText(ent[ind1]),CleanText(ent[ind3])])
+                self.restype[ent[ind0]] = TType
+                if   TType=='Unknown': liglist.append(ent[ind0])
+                elif TType=='Metal'  : metlist.append(ent[ind0])
+
+            if liglist: self.headers['LIGLIST'] = ','+','.join(liglist)+','
+            if metlist: self.headers['METLIST'] = ','+','.join(metlist)+','
+            del liglist,metlist,TType,ind0,ind1,ind3
 
         self.allwords = ' '.join([str(x) for x in list(self.allwords.keys())])
 
         # Residues to Chains (chains.RES) ; _pdbx_poly_seq_scheme ; Type=Unknown if Type(chain)!=Type(residue) or CIFID == '.'  !!
         cif_resind = {}
 
-        inds = [0]*len(self.mmcif_dict['_pdbx_poly_seq_scheme'][0])
-        inds[2]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('seq_id')
-        inds[3]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('mon_id')
-        inds[5]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_seq_num')
-        inds[9]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_strand_id')
-        inds[10] = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_ins_code')
+        if '_pdbx_poly_seq_scheme' in self.mmcif_dict:
 
-        for ent in self.mmcif_dict['_pdbx_poly_seq_scheme'][1:]:
-            res = Tools.ResidueCIF(ent,inds)
-            res['TYPE'] = self.restype[res['NAME']]
-            self.chains[res['CHAIN']]['RES'].append(res)
-            cif_resind[(res['CHAIN'],res['CIFID'])] = len(self.chains[res['CHAIN']]['RES'])-1
-        del inds
+            inds = [0]*len(self.mmcif_dict['_pdbx_poly_seq_scheme'][0])
+            inds[2]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('seq_id')
+            inds[3]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('mon_id')
+            inds[5]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_seq_num')
+            inds[9]  = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_strand_id')
+            inds[10] = self.mmcif_dict['_pdbx_poly_seq_scheme'][0].index('pdb_ins_code')
+
+            for ent in self.mmcif_dict['_pdbx_poly_seq_scheme'][1:]:
+                res = Tools.ResidueCIF(ent,inds)
+                res['TYPE'] = self.restype[res['NAME']]
+                self.chains[res['CHAIN']]['RES'].append(res)
+                cif_resind[(res['CHAIN'],res['CIFID'])] = len(self.chains[res['CHAIN']]['RES'])-1
+            del inds
 
         # ATOM+HETATM (_atom_site)
         pdb_ligind = {}
 
         longestchain = ''
         maxlen = 0
-        for ch in self.chains:
-            if len(self.chains[ch]['SEQ'])>maxlen: maxlen,longestchain = len(self.chains[ch]['SEQ']), ch
-        del ch,maxlen
 
-        for ent in self.mmcif_dict['_atom_site'][1:]:
+        if self.chains:
 
-            if ent[2] == 'H': continue # We do not consider Hydrogen atoms
+            for ch in self.chains:
+                if len(self.chains[ch]['SEQ'])>maxlen: maxlen,longestchain = len(self.chains[ch]['SEQ']), ch
 
-            atom = Tools.AtomCIF(ent)
-            atom['TYPE'] = self.restype[atom['RESNAME']]
+            del ch,maxlen
 
-            if type(atom['CIFID']) == int:
-                self.chains[atom['CHAIN']]['RES'][cif_resind[(atom['CHAIN'],atom['CIFID'])]]['ATOMS'].append(atom)
-            else:
-                if (atom['CHAIN'],atom['RESNUM']) not in pdb_ligind:
+        if '_atom_site' in self.mmcif_dict:
+
+            for ent in self.mmcif_dict['_atom_site'][1:]:
+
+                if ent[2] == 'H': continue # We do not consider Hydrogen atoms
+
+                atom = Tools.AtomCIF(ent)
+                atom['TYPE'] = self.restype[atom['RESNAME']] if atom['RESNAME'] in self.restype \
+                               else Tools.restype[atom['RESNAME']] if atom['RESNAME'] in Tools.restype else 'Unknown' 
+
+                if type(atom['CIFID']) == int:
+
                     if atom['CHAIN'] not in self.chains:
-                        self.headers['MASKEDCHS'][atom['CHAIN']] = longestchain
-                        atom['CHAIN'] = longestchain
-                    res = Tools.ResidueCIFAtom(atom)
-                    res['ATOMS'].append(atom)
-                    self.chains[atom['CHAIN']]['LIGANDS'].append(res)
-                    pdb_ligind[(atom['CHAIN'],atom['RESNUM'])] = len(self.chains[atom['CHAIN']]['LIGANDS'])-1
+                        self.chains[atom['CHAIN']] = Tools.Chain(atom['CHAIN'])
+
+                    if (atom['CHAIN'],atom['CIFID']) not in cif_resind:
+                        res = Tools.ResidueCIFAtom(atom)
+                        self.chains[atom['CHAIN']]['RES'].append(res)
+                        cif_resind[(atom['CHAIN'],atom['CIFID'])] = len(self.chains[atom['CHAIN']]['RES'])-1
+                    
+                    self.chains[atom['CHAIN']]['RES'][cif_resind[(atom['CHAIN'],atom['CIFID'])]]['ATOMS'].append(atom)
                 else:
-                    self.chains[atom['CHAIN']]['LIGANDS'][pdb_ligind[(atom['CHAIN'],atom['RESNUM'])]]['ATOMS'].append(atom)
-        del cif_resind,pdb_ligind,atom,res
+                    if (atom['CHAIN'],atom['RESNUM']) not in pdb_ligind:
+                        if atom['CHAIN'] not in self.chains:
+                            self.headers['MASKEDCHS'][atom['CHAIN']] = longestchain
+                            atom['CHAIN'] = longestchain
+                        res = Tools.ResidueCIFAtom(atom)
+                        res['ATOMS'].append(atom)
+                        self.chains[atom['CHAIN']]['LIGANDS'].append(res)
+                        pdb_ligind[(atom['CHAIN'],atom['RESNUM'])] = len(self.chains[atom['CHAIN']]['LIGANDS'])-1
+                    else:
+                        self.chains[atom['CHAIN']]['LIGANDS'][pdb_ligind[(atom['CHAIN'],atom['RESNUM'])]]['ATOMS'].append(atom)
+            del cif_resind,pdb_ligind,atom,res
 
         # START,END,SEQ,LENGTH,LIGSEQ,SEQ2 for chains + MISS=True for residues with no atoms
         for ch in sorted(list(self.chains.keys())):

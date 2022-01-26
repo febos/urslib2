@@ -428,7 +428,8 @@ def AtomCIF(row):
             'TEMPF'  :                 row[14],
             'ELEM'   :                  row[2],       # Chemical element
             'BONDS'  :                       0,
-            'CIFID'  :                   cifid}       # CIFID of residue
+            'CIFID'  :                   cifid,       # CIFID of residue
+            'ORIG'   :                     row}       
 
 def BP(lines): # parsing from DSSR
 
@@ -649,7 +650,7 @@ def ResidueCIF(line,inds): # Residue from mmcif._pdbx_poly_seq_scheme
             'BRACKETS'  :                   '.',   # stems only
             'SLBRACKETS':                   '.'}   # including wc/wb links
 
-def ResidueCIFAtom(atom): # Residue from mmcif._pdbx_poly_seq_scheme
+def ResidueCIFAtom(atom): # Residue from mmcif._atom_site
 
     Float = pdbnum_to_float(atom['RESNUM'])
     lu    = atom['CHAIN'] + '.' + atom['RESNAME'] + '.' + atom['RESNUM'][:-1] + '.' + atom['RESNUM'][-1].replace(' ','')
