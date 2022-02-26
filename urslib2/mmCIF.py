@@ -28,7 +28,8 @@ class Model():
                           'TYPE':        '',    # type of model (R, RD, RP, RPD) RNA/Protein/DNA
                           'LIGLIST':     '',    # ','.join(ligands)
                           'METLIST':     '',    # ','.join(metals)
-                          'MASKEDCHS':   {}}    # {fake_chain: designated_chain}
+                          'MASKEDCHS':   {},    # {fake_chain: designated_chain}
+                          'CHAINBIO':    {},}    
         self.chains     = {}
         self.molecules  = {}
         self.ids        = {}
@@ -203,6 +204,14 @@ class Model():
 
         #headers.TITLE
         self.headers['TITLE'] = CleanText(self.mmcif_dict['_struct.title']) if '_struct.title' in self.mmcif_dict else '?'
+
+        #headers.CHAINBIO
+        if '_pdbx_struct_assembly_gen' in self.mmcif_dict:
+            #print(self.mmcif_dict['_pdbx_struct_assembly_gen'])
+            for row in self.mmcif_dict['_pdbx_struct_assembly_gen'][1:]:
+                for chh in row[2].split(','):
+                    if chh not in self.headers['CHAINBIO']:
+                        self.headers['CHAINBIO'][chh] = row[0]
 
         for i in self.headers['TITLE'].split():
             if i not in self.allwords: self.allwords[i] = 1
@@ -664,6 +673,7 @@ class Model():
                         cif_resind[(atom['CHAIN'],atom['CIFID'])] = len(self.chains[atom['CHAIN']]['RES'])-1
                     
                     self.chains[atom['CHAIN']]['RES'][cif_resind[(atom['CHAIN'],atom['CIFID'])]]['ATOMS'].append(atom)
+                    self.chains[atom['CHAIN']]['RES'][cif_resind[(atom['CHAIN'],atom['CIFID'])]]['CIFCHAIN'] = atom['CIFCHAIN']
                 else:
                     if (atom['CHAIN'],atom['RESNUM']) not in pdb_ligind:
                         if atom['CHAIN'] not in self.chains:
@@ -675,6 +685,7 @@ class Model():
                         pdb_ligind[(atom['CHAIN'],atom['RESNUM'])] = len(self.chains[atom['CHAIN']]['LIGANDS'])-1
                     else:
                         self.chains[atom['CHAIN']]['LIGANDS'][pdb_ligind[(atom['CHAIN'],atom['RESNUM'])]]['ATOMS'].append(atom)
+                        self.chains[atom['CHAIN']]['LIGANDS'][pdb_ligind[(atom['CHAIN'],atom['RESNUM'])]]['CIFCHAIN'] = atom['CIFCHAIN']
             del cif_resind,pdb_ligind,atom,res
 
         # START,END,SEQ,LENGTH,LIGSEQ,SEQ2 for chains + MISS=True for residues with no atoms

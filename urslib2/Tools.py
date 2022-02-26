@@ -418,6 +418,7 @@ def AtomCIF(row):
             'NAME'   :                    name,       # Name of atom in residue
             'ALTLOC' : row[4].replace('.',' '),       # Alternate location
             'RESNAME':                  row[5],       # Name of residue
+            'CIFCHAIN':                 row[6],       # label_asym_id of chain
             'CHAIN'  :                    chch,       # letter identifier of chain
             'TYPE'   :                      '',       # RNA, Protein, Unknown, Metal or Water
             'RESNUM' :                  resnum,       # PDBNUM of residue
@@ -512,7 +513,7 @@ def Chain(letter):
             'RES'        :     [],   # residues list
             'NUMS'       :     {},   # dict[pdbnum] = index of 'RES'
             'TYPE'       :  '\\N',   # RNA, DNA, Protein or Unknown
-            'CHID'       : letter,   # letter identifier
+            'CHID'       : letter,   # letter identifier == auth_asym_id
             'MOL_ID'     :  '\\N',   # ID of molecule
             'LIGANDS'    :     [],   # ligands list
             'GARBAGE'    :  False,   # garbage chain or not
@@ -524,7 +525,8 @@ def Chain(letter):
             'BOUND'      :      0,
             'BOUNDWCWB'  :      0,
             'LIGBOUND'   :      0,
-            'DIAGRAM'    :  '\\N'}
+            'DIAGRAM'    :  '\\N',
+            'CIF_CHID'   :  '\\N'}   # == label_asym_id
 
 def Molecule(Mol_id):
                                         # See PDB Format Documentation
@@ -635,6 +637,7 @@ def ResidueCIF(line,inds): # Residue from mmcif._pdbx_poly_seq_scheme
             'PDBNUM'    :   line[inds[5]]+icode,   # Number + icode from PDB file
             'NAME'      :         line[inds[3]],   # Name of residue
             'CHAIN'     :         line[inds[9]],   # letter identifier of chain
+            'CIFCHAIN'  :                 '\\N',   # label_asym_id
             'ATOMS'     :                    [],   # atoms list
             'FLOAT'     :                 Float,   # float equivalent of 'PDBNUM'
             'DSSR'      :                    lu,   # chain.nucl.pdbnum.icode (like DSSR)
@@ -661,6 +664,7 @@ def ResidueCIFAtom(atom): # Residue from mmcif._atom_site
             'PDBNUM'    :  atom['RESNUM'],   # Number + icode from PDB file
             'NAME'      : atom['RESNAME'],   # Name of residue
             'CHAIN'     :   atom['CHAIN'],   # letter identifier of chain
+            'CIFCHAIN'  :atom['CIFCHAIN'],   # label_asym_id
             'ATOMS'     :              [],   # atoms list
             'FLOAT'     :           Float,   # float equivalent of 'PDBNUM'
             'DSSR'      :              lu,   # chain.nucl.pdbnum.icode (like DSSR)
