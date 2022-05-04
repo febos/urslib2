@@ -4,14 +4,14 @@ try:
     from urslib2.SS import Wings, Stems,  Threads, Links
     from urslib2.SS import Loops, Towers, Multiplets, Sign
     from urslib2.SS import Interactions, MetalAndLigand, Relation
-    from urslib2.SS import Organism,GetMotifPDB, Interactions2
+    from urslib2.SS import Organism,GetMotifPDB, Interactions2, Motifs
 except ImportError:
     import Merge, Tools
     from SS import ChainOrder, Mask
     from SS import Wings, Stems,  Threads,    Links
     from SS import Loops, Towers, Multiplets, Sign
     from SS import Interactions, MetalAndLigand, Relation
-    from SS import Organism,GetMotifPDB, Interactions2
+    from SS import Organism,GetMotifPDB, Interactions2, Motifs
 
 import os
 
@@ -34,6 +34,7 @@ def SecStruct(pdbmodel, outmodel):
     Relation.add(model)
     Organism.add(model)
     GetMotifPDB.add(model)
+    Motifs.add(model)
 
     return model
 
