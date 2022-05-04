@@ -26,6 +26,10 @@ def BIE_BWE(model):
         for i in range(1,s[0]-1):
             thr = s[1][i-1:i+2]
             thrs = [thr,thr[::-1]]
+
+            if not all([x in model.dssrnucls for x in thr]):
+                continue
+            
             for thr in thrs:
                 if model.dssrnucls[thr[0]][0]==model.dssrnucls[thr[2]][0] and\
                    (model.dssrnucls[thr[0]][2]+1==model.dssrnucls[thr[2]][2] or\
