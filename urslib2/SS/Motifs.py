@@ -41,6 +41,10 @@ def BIE_BWE(model):
     good = []
 
     for st in stacks:
+
+        if st[0] not in stackparam or st[1] not in stackparam:
+            continue
+        
         stack = {}
         if   model.dssrnucls[st[0]][2]+1==model.dssrnucls[st[2]][2]: type1 = 'BIE'
         elif model.dssrnucls[st[0]][2]+2==model.dssrnucls[st[2]][2]: type1 = 'BWE'
@@ -117,6 +121,7 @@ def HelicalStacking(model):
                                         'STACKING':stacks})   
     return cstacks
 
+
 def NN_Platform(model):
 
     plats = []
@@ -134,16 +139,80 @@ def NN_Platform(model):
     return plats
 
 
+def InternalLoopMotif(model):
+
+    intloops = []
+
+    bpd = {}     
+    
+    for bp in model.bpairs:
+    
+        n1,n2 = bp['NUCL1'][0],bp['NUCL2'][0]
+        if n1 not in bpd:
+            bpd[n1] = {}
+        if n2 not in bpd:
+            bpd[n2] = {}
+        bpd[n1][n2] = bp['CLASS'][1]
+        bpd[n2][n1] = bp['CLASS'][1]
+
+    for il in model.loops['INTERNAL']:
+    
+        if il['PTYPE'] != 'C': 
+            continue
+    
+        t1 = model.threads[il['TLOOP'][0]['THREAD']-1]
+        t2 = model.threads[il['TLOOP'][1]['THREAD']-1]
+    
+        seq1 = t1['SEQ']
+        seq2 = t2['SEQ']
+    
+        ns1 = [x['DSSR'] for x in model.chains[t1['CHAIN']][t1['START'][1]][t1['START'][2]:t1['END'][2]+1]]
+        ns2 = [x['DSSR'] for x in model.chains[t2['CHAIN']][t2['START'][1]][t2['START'][2]:t2['END'][2]+1]]
+        
+        ## Tandem GA
+        if seq1 == seq2 == 'G,A': 
+            
+            if ns1[0] in bpd and ns2[1] in bpd[ns1[0]] and bpd[ns1[0]][ns2[1]] in ('tHS','tSH'):
+                if ns1[1] in bpd and ns2[0] in bpd[ns1[1]] and bpd[ns1[1]][ns2[0]] in ('tHS','tSH'):
+                    
+                    intloops.append({'TYPE':'TandemGA',
+                                     'STRAND1': ns1,
+                                     'STRAND2': ns2})
+        
+        ## UAA/GAN internal loop
+        elif seq1 == 'U,A,A' and (seq2.startswith('G,A') and seq2.count(',') > 1 or seq2=='G,G,A') or\
+           seq2 == 'U,A,A' and (seq1.startswith('G,A') and seq1.count(',') > 1 or seq1=='G,G,A'):
+                        
+            if seq1 != 'U,A,A':
+                seq1,seq2 = seq2,seq1
+                ns1,ns2 = ns2,ns1
+            
+            if ns1[-1] in bpd and ns2[0] in bpd[ns1[-1]] and bpd[ns1[-1]][ns2[0]] in ('tHS','tSH'):
+                
+                nx = ns2[1]
+                
+                if seq2 == 'G,G,A':
+                    nx = ns2[2]
+                
+                if ns1[0] in bpd and nx in bpd[ns1[0]] and bpd[ns1[0]][nx] in ('tWW','tWH','tHW'):
+                    
+                    intloops.append({'TYPE':'UAA/GAN',
+                                     'STRAND1': ns1,
+                                     'STRAND2': ns2})
+    return intloops
+
+
 def add(model): 
 
     biebwe           = BIE_BWE(model)
     helicalstacking  = HelicalStacking(model)
     nnplatform       = NN_Platform(model)
-
+    intloopmotif     = InternalLoopMotif(model)
     
     model.biebwe              = biebwe
     model.helicalstacking     = helicalstacking
     model.nnplatform          = nnplatform
+    model.intloopmotif        = intloopmotif
 
 
 
