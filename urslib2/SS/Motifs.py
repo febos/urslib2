@@ -117,12 +117,36 @@ def HelicalStacking(model):
                                         'STACKING':stacks})   
     return cstacks
 
+def NN_Platform(model):
+
+    plats = []
+
+    for bp in model.bpairs:
+    
+        ch1,pl1,i1 = model.dssrnucls[bp['NUCL1'][0]]
+        ch2,pl2,i2 = model.dssrnucls[bp['NUCL2'][0]]
+
+        if ch1==ch2 and pl1==pl2 and abs(i1-i2)==1:
+        
+            plats.append({'NUCL1':bp['NUCL1'][0],
+                          'NUCL2':bp['NUCL2'][0],
+                          'BPID' :bp['ID']})
+    return plats
+
 
 def add(model): 
 
     biebwe           = BIE_BWE(model)
-    helicalstacking = HelicalStacking(model)
+    helicalstacking  = HelicalStacking(model)
+    nnplatform       = NN_Platform(model)
 
     
-    model.biebwe               = biebwe
+    model.biebwe              = biebwe
     model.helicalstacking     = helicalstacking
+    model.nnplatform          = nnplatform
+
+
+
+
+
+    
