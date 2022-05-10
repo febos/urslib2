@@ -202,17 +202,40 @@ def InternalLoopMotif(model):
     return intloops
 
 
+def Tetraloop(model):
+
+    tloops = []
+
+    for h in model.loops['HAIRPIN']:
+
+        if h['PTYPE'] != 'C': 
+            continue
+    
+        t = model.threads[h['TLOOP'][0]['THREAD']-1]
+    
+        seq = t['SEQ']
+        ns = [x['DSSR'] for x in model.chains[t['CHAIN']][t['START'][1]][t['START'][2]:t['END'][2]+1]]
+
+        if len(ns)==4:
+
+            tloops.append({'SEQ':seq,
+                           'NUCLS':ns})
+    return tloops
+
+
 def add(model): 
 
     biebwe           = BIE_BWE(model)
     helicalstacking  = HelicalStacking(model)
     nnplatform       = NN_Platform(model)
     intloopmotif     = InternalLoopMotif(model)
+    tetraloop        = Tetraloop(model)
     
     model.biebwe              = biebwe
     model.helicalstacking     = helicalstacking
     model.nnplatform          = nnplatform
     model.intloopmotif        = intloopmotif
+    model.tetraloop           = tetraloop
 
 
 
