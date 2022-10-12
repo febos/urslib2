@@ -100,44 +100,48 @@ class Model():
         """ The end of parsing.
         The start of filling self.headers"""
 
-        # DATE
-
-        day,month,year = PDBdict['HEADER'][50:52],PDBdict['HEADER'][53:56],PDBdict['HEADER'][57:59]
-
-        '''99 -> 1999; 01 -> 2001'''
-        if int(year[0]) < 2: year = str(2000 + int(year))
-        else               : year = str(1900 + int(year))
-
-        '''MAR -> 03'''
-        month = Tools.months[month] 
-
-        '''assembling of date of mysql format'''
-        self.headers['DATE'] = year + '-' + month + '-' + day
-
-        ''' delete garbage '''
-        del day,month,year 
-
-        # HEADER
-
-        """ clean_seq: ' TRNA    FRAGMENT    ' -> 'TRNA FRAGMENT'"""
-        self.headers['HEADER']   = Tools.clean_seq(PDBdict['HEADER'][10:50])
-
-        # PDBFILE
         
-        self.headers['PDBFILE']  = PDBdict['HEADER'][62:66].upper()
 
-        del PDBdict['HEADER']
+        if PDBdict['HEADER']:
+            # DATE
+            day,month,year = PDBdict['HEADER'][50:52],PDBdict['HEADER'][53:56],PDBdict['HEADER'][57:59]
+
+            '''99 -> 1999; 01 -> 2001'''
+            if int(year[0]) < 2: year = str(2000 + int(year))
+            else               : year = str(1900 + int(year))
+
+            '''MAR -> 03'''
+            month = Tools.months[month] 
+
+            '''assembling of date of mysql format'''
+            self.headers['DATE'] = year + '-' + month + '-' + day
+
+            ''' delete garbage '''
+            del day,month,year 
+
+            # HEADER
+
+            """ clean_seq: ' TRNA    FRAGMENT    ' -> 'TRNA FRAGMENT'"""
+            self.headers['HEADER']   = Tools.clean_seq(PDBdict['HEADER'][10:50])
+
+            # PDBFILE
+        
+            self.headers['PDBFILE']  = PDBdict['HEADER'][62:66].upper()
+
+            del PDBdict['HEADER']
 
         # TITLE
 
         Title = ''
 
-        for string in PDBdict['TITLE']:
-            Title += string[10:80]
+        if PDBdict['TITLE']:
 
-        self.headers['TITLE'] = Tools.clean_seq(Title)
+            for string in PDBdict['TITLE']:
+                Title += string[10:80]
 
-        del Title,PDBdict['TITLE']
+            self.headers['TITLE'] = Tools.clean_seq(Title)
+
+            del Title,PDBdict['TITLE']
 
         # COMPND,SOURCE (self.molecules)
         
@@ -207,7 +211,8 @@ class Model():
 
         for keyword in PDBdict['KEYWDS']: keywords += keyword[10:80]
 
-        keywords = Tools.clean_seq(keywords).split(', ') # 'one; two;three' -> ['one','two','three']
+        if keywords:
+            keywords = Tools.clean_seq(keywords).split(', ') # 'one; two;three' -> ['one','two','three']
 
         self.headers['KEYWDS'] = keywords
 
@@ -219,7 +224,8 @@ class Model():
 
         for datum in PDBdict['EXPDTA']: expdata += datum[10:80]
 
-        expdata = Tools.clean_seq(expdata).split(';')
+        if expdata:
+            expdata = Tools.clean_seq(expdata).split(';')
 
         self.headers['EXPDTA'] = expdata
 
@@ -255,13 +261,15 @@ class Model():
 
         # RESOL (resolution in angstroms)
 
-        resstring = PDBdict['REMARK2']
+        if PDBdict['REMARK2']:
 
-        if resstring[11:38] != 'RESOLUTION. NOT APPLICABLE.':
+            resstring = PDBdict['REMARK2']
 
-            self.headers['RESOL'] = float(Tools.cut_for_float(resstring[23:30]))
+            if resstring[11:38] != 'RESOLUTION. NOT APPLICABLE.':
 
-        del resstring,PDBdict['REMARK2']
+                self.headers['RESOL'] = float(Tools.cut_for_float(resstring[23:30]))
+
+            del resstring,PDBdict['REMARK2']
 
         # CRYSYM (Crystallographic Symmetry, REMARK290)
 
@@ -434,6 +442,8 @@ class Model():
 
         # ATOM
 
+        self.restype = Tools.restype
+    
         atom,chain = None, None
         ter  = {}
         seen = {}
