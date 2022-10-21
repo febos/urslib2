@@ -59,6 +59,10 @@ def Cubics(model, needed_atoms, minmax, side):
 
     n, m, k = int(length//side), int(width//side), int(height//side)
 
+    n = 1 if n==0 else n
+    m = 1 if m==0 else m
+    k = 1 if k==0 else k
+
     bitlen = length/n
     bitwid = width/m
     bithei = height/k
