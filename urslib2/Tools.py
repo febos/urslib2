@@ -391,6 +391,7 @@ def Atom(string):
             'Y'      :      float(string[38:46]),       # y coordinate
             'Z'      :      float(string[46:54]),       # z coordinate
             'OCCUP'  :      float(string[54:60]),       # Occupancy
+            'TEMPF'  :      float(string[60:66]),       # Temperature factor
             'ELEM'   : cut_spaces(string[76:78]),       # Chemical element
             'BONDS'  :                         0}
 
