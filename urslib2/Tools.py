@@ -384,7 +384,7 @@ def Atom(string):
             'NAME'   : cut_spaces(string[12:16]),       # Name of atom in residue
             'ALTLOC' :                string[16],       # Alternate location
             'RESNAME': cut_spaces(string[17:20]),       # Name of residue
-            'CHAIN'  :                string[21],       # letter identifier of chain
+            'CHAIN'  :  string[20:22].strip(' '),       # letter identifier of chain
             'TYPE'   :                        '',       # RNA, Protein, Unknown, Metal or Water
             'RESNUM' :     pdbnum(string[22:27]),       # PDBNUM of residue
             'X'      :      float(string[30:38]),       # x coordinate

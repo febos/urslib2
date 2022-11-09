@@ -24,8 +24,11 @@ def GetMotifPDB(self,dssrlist,output):
             res += atom['ALTLOC']
             res += ' '*(3-len(str(atom['RESNAME'])))
             res += atom['RESNAME']
-            res += ' '
-            res += atom['CHAIN'][:1]
+            if len(atom['CHAIN'])==1:
+                res += ' '
+                res += atom['CHAIN']
+            else:
+                res += atom['CHAIN'][:2]
             res += ' '*(4-len(str(atom['RESNUM'][:-1])))
             res += atom['RESNUM']
             res += ' '*3
