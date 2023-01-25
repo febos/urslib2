@@ -15,9 +15,12 @@ except ImportError:
 
 import os
 
-def SecStruct(pdbmodel, outmodel):
+def SecStruct(pdbmodel, outmodel=None, wcwblist=None):
 
-    model = Merge.Model(pdbmodel,outmodel)
+    if outmodel is None:
+        model = Merge.Model(pdbmodel,wcwblist=wcwblist)
+    else:
+        model = Merge.Model(pdbmodel, outmodel)
 
     Mask.add(model)
     ChainOrder.add(model)

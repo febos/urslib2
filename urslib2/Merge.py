@@ -13,16 +13,80 @@ except ImportError:
     import Tools
 
 
+def BasePairsFromList(model, bplist):
+
+    bpairs = []
+
+    def SortNucl(x):
+        return x.split('.')[0],int(x.split('.')[2])
+
+    bps = []
+    with open(bplist) as file:
+        for line in file:
+            if line.strip():
+                bps.append(line.strip().split())
+
+    bps = sorted([sorted(tuple(d),key=SortNucl) for d in bps], key = lambda x: (SortNucl(x[0]),
+                                                                                SortNucl(x[1])))
+    for i, bp in enumerate(bps):
+        b1 = bp[0].split('.')[1]
+        b2 = bp[1].split('.')[1]
+        ch1 = bp[0].split('.')[0]
+        ch2 = bp[1].split('.')[0]
+
+        bpairs.append({'ID': i+1,
+                       'NUCL1': bp[0],
+                       'NUCL2': bp[1],
+                       'PAIR': bp[0]+'-'+bp[1],
+                       'BOND': b1+'-'+b2,
+                       'TYPE': {'GC':'WC','CG':'WC',
+                                'AU':'WC','UA':'WC',
+                                'GU':'WB','UG':'WB'}[b1+b2],
+                       'CLASS': [{'GC':'19-XIX','CG':'19-XIX',
+                                  'AU':'20-XX', 'UA':'20-XX',
+                                  'GU':'28-XXVIII','UG':'28-XXVIII'}[b1+b2], 'cWW', 'cW-W'],
+                       'CHAIN1': ch1,
+                       'CHAIN2': ch2,
+                       'INFO1': "-165.0(anti) ~C3'-endo lambda=53.0",
+                       'INFO2': "-165.0(anti) ~C3'-endo lambda=53.0",
+                       'DIST1': 0.0,
+                       'DIST2': 0.0,
+                       'DIST3': 0.0,
+                       'TOR': 0.0,
+                       'HBONDSNUM': 0,
+                       'HBONDS': [],
+                       'PARAMS': '[0.00   0.00   0.00   0.00   0.00   0.00]',
+                       'SHEAR': '0.00',
+                       'STRETCH': '0.00',
+                       'STAGGER': '0.00',
+                       'BUCKLE': '0.00',
+                       'PROPELLER': '0.00',
+                       'OPENING': '0.00',
+                       'STEM': None,
+                       'OLDSTEM': None,
+                       'FULLSTEM': None,
+                       'REVSTEM': None,
+                       'LUSTEM': None,
+                       'LINK': None,
+                       'HELIX': None,
+                       'NUCLMULT': None,
+                       'STEP': '0.00 0.00 0.00 0.00 0.00 0.00'})
+    return bpairs
+
 class Model():
 
-    def __init__(self,pdbmodel,outmodel,form='CIF'):
+    def __init__(self,pdbmodel,outmodel=None,form='CIF',wcwblist=None):
 
-        if os.path.basename(pdbmodel)[:4] != os.path.basename(outmodel)[:4]: raise TypeError('Inappropriate file names!')
+        if not (outmodel is None): 
+            if os.path.basename(pdbmodel)[:4] != os.path.basename(outmodel)[:4]: raise TypeError('Inappropriate file names!')
 
         if   form == 'CIF': pdb = mmCIF.Model(pdbmodel)
         elif form == 'PDB': pdb =   PDB.Model(pdbmodel)
 
         dssr = DSSR.Model(outmodel)
+
+        if wcwblist:
+            dssr.bpairs = BasePairsFromList(pdb, wcwblist)
 
         self.headers = {}
 

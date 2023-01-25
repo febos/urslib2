@@ -177,7 +177,7 @@ def run_all(infolder='',outfolder='',form='cif',temp=False):
 
 class Model():
 
-    def __init__(self,outpath):
+    def __init__(self,outpath=None):
 
         self.headers    = {'FILE':     '', 'CHAINSNUM': 0,
                            'CHAINS':   [], 'NUCLS':     0,
@@ -213,8 +213,8 @@ class Model():
         self.stacks     = []
         self.abcaps     = []
 
-
-        self.parse(outpath)
+        if not (outpath is None):
+            self.parse(outpath)
 
     def parse(self, outpath):
 
