@@ -375,7 +375,7 @@ def pdbnum_to_float(number) -> 'like "128A" -> 128.03':
 
     number = pdbnum(number)
 
-    return float(number[:-1]) + letter_weight[number[-1]]
+    return float(number[:-1]) + letter_weight[number[-1].upper()]
 
 def Atom(string):
 
