@@ -395,7 +395,9 @@ def Atom(string):
             'ELEM'   : cut_spaces(string[76:78]),       # Chemical element
             'BONDS'  :                         0}
 
-def AtomCIF(row):
+def AtomCIF(row, title = None):
+
+    #print(title)
 
     name = row[3]
     if name[-1] == '"': name = name[:-1]
@@ -405,12 +407,24 @@ def AtomCIF(row):
     if cifid == '.': cifid = '\\N'
     else: cifid = int(cifid)
 
-    if len(row)<23:
-        chch = row[18]
-        resnum = row[16]+row[9]
+    if title and "auth_asym_id" in title:
+        chch = row[title.index("auth_asym_id")]
     else:
-        chch = row[23]
-        resnum = row[21]+row[9]
+        if len(row)<23:
+            chch = row[18]
+        else:
+            chch = row[23]
+
+    if title and "auth_seq_id" in title and "pdbx_PDB_ins_code" in title:
+        resnum = row[title.index("auth_seq_id")]+row[title.index("pdbx_PDB_ins_code")]
+    else:
+        if len(row)<23:
+            chch = row[18]
+            resnum = row[16]+row[9]
+        else:
+            chch = row[23]
+            resnum = row[21]+row[9]
+            
     if resnum[-1]=='?': resnum = resnum[:-1]+' '
     
 
@@ -418,17 +432,17 @@ def AtomCIF(row):
             'NUM'    :             int(row[1]),       # number from PDB file
             'NAME'   :                    name,       # Name of atom in residue
             'ALTLOC' : row[4].replace('.',' '),       # Alternate location
-            'RESNAME':                  row[5],       # Name of residue
-            'CIFCHAIN':                 row[6],       # label_asym_id of chain
+            'RESNAME':          row[title.index("label_comp_id")] if title else row[5],       # Name of residue label_comp_id
+            'CIFCHAIN':         row[title.index("label_asym_id")] if title else row[6],       # label_asym_id of chain
             'CHAIN'  :                    chch,       # letter identifier of chain
             'TYPE'   :                      '',       # RNA, Protein, Unknown, Metal or Water
             'RESNUM' :                  resnum,       # PDBNUM of residue
-            'X'      :          float(row[10]),       # x coordinate
-            'Y'      :          float(row[11]),       # y coordinate
-            'Z'      :          float(row[12]),       # z coordinate
-            'OCCUP'  :          float(row[13]),       # Occupancy
-            'TEMPF'  :                 row[14],
-            'ELEM'   :                  row[2],       # Chemical element
+            'X'      :          float(row[title.index("Cartn_x")]) if title else float(row[10]),       # x coordinate
+            'Y'      :          float(row[title.index("Cartn_y")]) if title else float(row[11]),       # y coordinate
+            'Z'      :          float(row[title.index("Cartn_z")]) if title else float(row[12]),       # z coordinate
+            'OCCUP'  :          float(row[title.index("occupancy")]) if title else float(row[13]),       # Occupancy
+            'TEMPF'  :          row[title.index("B_iso_or_equiv")] if title else row[14],       # B_iso_or_equiv
+            'ELEM'   :          row[title.index("type_symbol")] if title else row[2],       # Chemical element
             'BONDS'  :                       0,
             'CIFID'  :                   cifid,       # CIFID of residue
             'ORIG'   :                     row}       

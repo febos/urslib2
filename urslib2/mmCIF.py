@@ -601,7 +601,11 @@ class Model():
 
             ind0 = self.mmcif_dict['_chem_comp'][0].index('id')
             ind1 = self.mmcif_dict['_chem_comp'][0].index('type')
-            ind3 = self.mmcif_dict['_chem_comp'][0].index('name')
+            try:
+                ind3 = self.mmcif_dict['_chem_comp'][0].index('name')
+            except:
+                ind3 = ind0
+            
 
             for ent in self.mmcif_dict['_chem_comp'][1:]:
 
@@ -658,7 +662,7 @@ class Model():
 
                 if ent[2] == 'H': continue # We do not consider Hydrogen atoms
 
-                atom = Tools.AtomCIF(ent)
+                atom = Tools.AtomCIF(ent,self.mmcif_dict['_atom_site'][0])
                 atom['TYPE'] = self.restype[atom['RESNAME']] if atom['RESNAME'] in self.restype \
                                else Tools.restype[atom['RESNAME']] if atom['RESNAME'] in Tools.restype else 'Unknown' 
 
