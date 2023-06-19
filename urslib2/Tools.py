@@ -1104,7 +1104,7 @@ def LuNon_pair(line): # parsing from DSSR
     for k in line:
         if k.startswith('interBase-angle'):
             angle = k.split('=')[1]
-        if k.startswith('min_baseDist'):
+        if k.startswith('min_baseDist') or k.startswith('min-baseDist'):
             mindist = k.split('=')[1]
 
     return {'ID'       :       num,
