@@ -9,7 +9,7 @@ urslib2 is an implementation of definitions of the RNA secondary structure eleme
 
 urslib2 was used for the annotation of RNA long-range nucleotide doublets, see:
 
-[D.R. Bohdan, V.V. Voronina, J.M. Bujnicki, E.F. Baulin (2022) A comprehensive survey of long-range tertiary interactions and motifs in non-coding RNA structures. bioRxiv. DOI: 10.1101/2022.11.01.514747](https://doi.org/10.1101/2022.11.01.514747)
+[D.R. Bohdan, V.V. Voronina, J.M. Bujnicki, E.F. Baulin (2023) A comprehensive survey of long-range tertiary interactions and motifs in non-coding RNA structures. Nucleic Acids Research. gkad605. DOI: 10.1093/nar/gkad605](https://doi.org/10.1093/nar/gkad605)
 
 The previous version of the library named "urslib" was used for the classification of RNA A-minor motifs, see:
 
