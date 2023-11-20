@@ -31,6 +31,7 @@ def Organism(organism):
                'lampyridae':'lampyridae',
                'leishmania':'leishmania',
                'metagenome':'metagenome',
+               'mus':'mus',
                'neurospora':'neurospora',
                'none':'unspecified',
                'norovirus':'norovirus',
