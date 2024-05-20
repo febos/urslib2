@@ -19,6 +19,7 @@ def BFS(edges, adj_list, cc, new_e, Type):
 
                 pop1.append(vert)
                 seen.append(vert)
+    
     while pop1:
 
         for vert in pop1:
@@ -46,7 +47,9 @@ def Adjacency_List(edges, Type):
         if   Type == 'NUCL'  : vert1, vert2 = e['NUCL1'][0], e['NUCL2'][0]
         elif Type == 'FSTEM' : vert1, vert2 = e['FSTEM1'],   e['FSTEM2']
 
-        if vert1 == vert2: continue
+        if vert1 == vert2:
+            adj_list[vert1] = []
+            continue
 
         if vert1 not in adj_list: adj_list[vert1] = [vert2,]
         else:                     adj_list[vert1].append(vert2)

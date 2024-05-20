@@ -19,6 +19,7 @@ def Organism(organism):
     orgsplit = org.split(' ')
 
     singles = {'acidaminococcus':'acidaminococcus',
+               'arabidopsis':'arabidopsis',
                'bacterium': 'unidentified bacterium',
                'canis':'canis',
                'coxsackievirus':'coxsackievirus',
@@ -26,6 +27,7 @@ def Organism(organism):
                'deltaproteobacteria':'deltaproteobacteria',
                'drosophila':'drosophila',
                'enterovirus':'enterovirus',
+               'escherichia':'escherichia',
                'geobacter':'geobacter',
                'lambdapapillomavirus':'lambdapapillomavirus',
                'lampyridae':'lampyridae',
@@ -38,20 +40,29 @@ def Organism(organism):
                '\\N':'unspecified',
                '':'unspecified',
                'proteobacteria':'proteobacteria',
+               'pseudomonas':'pseudomonas',
                'pyrococcus':'pyrococcus',
                'rattus':'rattus',
                'reovirus':'reovirus',
                't7likevirus':'t7likevirus',
+               'tetrahymena':'tetrahymena',
                'thermus':'thermus',
                'phage':'phage',
                'triticum':'triticum',
                'saccharomyces':'saccharomyces',
+               'serratia':'serratia',
                'streptomyces':'streptomyces',
+               'sulfurihydrogenibium':'sulfurihydrogenibium',
                'synthetic':'synthetic',
                'unclassified':'unidentified',
                'unidentified':'unidentified'}
 
-    if len(orgsplit)==1: return singles[org]
+    if len(orgsplit)==1:
+        if org in singles:
+            return singles[org]
+        else:
+            print(org)
+            return org
 
     doubles = {'synthetic dna':'synthetic',
                'synthetic construct':'synthetic',
