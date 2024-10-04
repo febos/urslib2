@@ -1,6 +1,8 @@
 # urslib2
 Library for processing RNA structures using PDB, DSSR and other data.
 
+## Check out [our other developments](https://github.com/febos/wiki)
+
 # description
 
 urslib2 is an implementation of definitions of the RNA secondary structure elements described in:
