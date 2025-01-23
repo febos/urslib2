@@ -2,7 +2,7 @@ import os
 import glob
 import time
 
-def Into_models(filepath, outfolder):
+def Into_models(filepath, outfolder, m1only = False):
 
     right_order = ['_atom_site.group_PDB', '_atom_site.id', '_atom_site.type_symbol',
                    '_atom_site.label_atom_id', '_atom_site.label_alt_id', '_atom_site.label_comp_id',
@@ -52,16 +52,22 @@ def Into_models(filepath, outfolder):
 
                 if curmodel != current:
                     current = curmodel
-                    if curmodel==0: curmodel=1
-                    models.append(open(outfolder + filename + str(curmodel), 'w'))
-                    for i in title:
-                        models[-1].write(i)
-                    if len(atom_rows)!=len(right_order):
-                        models[-1].write(' \n'.join([x for x in right_order if x in atom_rows])+' \n')
-                    else: models[-1].write(' \n'.join(right_order)+' \n') # _atom_site. Headers
+                    if curmodel==0:
+                        curmodel=1
 
-                if atom_rows == right_order: models[-1].write(line)
-                else                       : models[-1].write(Fixed(atom_rows,line))
+                    if curmodel == 1 or not m1only:
+                        
+                        models.append(open(outfolder + filename + str(curmodel), 'w'))
+                        for i in title:
+                            models[-1].write(i)
+                        if len(atom_rows)!=len(right_order):
+                            models[-1].write(' \n'.join([x for x in right_order if x in atom_rows])+' \n')
+                        else: models[-1].write(' \n'.join(right_order)+' \n') # _atom_site. Headers
+
+                if curmodel == 1 or not m1only:
+
+                    if atom_rows == right_order: models[-1].write(line)
+                    else                       : models[-1].write(Fixed(atom_rows,line))
 
             else:
                 if hat:
@@ -71,11 +77,10 @@ def Into_models(filepath, outfolder):
                         m.write(line)
 
     for m in models: m.close()
-
     print(filename+' is successfully divided into models.',end='\n')
 
 
-def All(infolder='',outfolder=''):
+def All(infolder='',outfolder='', m1only = False):
 
     good_input = 0
 
@@ -109,7 +114,7 @@ def All(infolder='',outfolder=''):
     for f in files:
 
         print(str(counter)+'/'+str(total),end=' ')
-        Into_models(f,outfolder)
+        Into_models(f,outfolder, m1only = m1only)
         counter += 1
 
     Time = time.time() - Time    
