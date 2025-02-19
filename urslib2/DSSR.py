@@ -212,6 +212,7 @@ class Model():
         self.brackets   = []
         self.stacks     = []
         self.abcaps     = []
+        self.summary    = {}
 
         if not (outpath is None):
             self.parse(outpath)
@@ -223,7 +224,7 @@ class Model():
                     'BULGE':   [], 'INTERNAL':[], 'JUNCTION': [], 'PSEUDO':  [],
                     'NON-LOOP':[], 'KISSING': [], 'A-MINOR':  [], 'U-TURN':  [],
                     'ZIPPER':  [], 'K-TURN':  [], 'PO4':      [], 'BRACKETS':[],
-                    '0':       [], 'STACKING':[], 'ATOM-BASE':[],}
+                    '0':       [], 'STACKING':[], 'ATOM-BASE':[], 'SUMMARY': []}
 
         with open(outpath) as out:
 
@@ -263,6 +264,7 @@ class Model():
                         elif 'dot-bracket'   in line: current = 'BRACKETS'
                         elif 'stacks' in line and 'coaxial' not in line: current = 'STACKING'
                         elif 'atom-base cap' in line: current = 'ATOM-BASE'
+                        elif "Summary of structural" in line: current = "SUMMARY"
                         else                        : current = '0'
 
                         Next = 0
@@ -272,6 +274,12 @@ class Model():
             
 
         del current,Next,DSSRdict['0']
+
+        # Summary per-residue info
+        for line in DSSRdict['SUMMARY'][8:]:
+            linesplit = line.strip().split()
+            if linesplit:
+                self.summary[linesplit[3]] = linesplit[5]
 
         # HEADERS (self.headers)
 

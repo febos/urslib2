@@ -115,6 +115,7 @@ class Model():
         self.lubrackets = dssr.brackets
         self.stacks     = dssr.stacks
         self.abcaps     = dssr.abcaps
+        self.summary    = dssr.summary
 
         self.add_nucl_id()
         self.merge_lustems_lones()
