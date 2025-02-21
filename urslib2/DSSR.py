@@ -279,7 +279,8 @@ class Model():
         for line in DSSRdict['SUMMARY'][8:]:
             linesplit = line.strip().split()
             if linesplit:
-                self.summary[linesplit[3]] = linesplit[5]
+                idstr = '.'.join(linesplit[3].split('.')[2:])
+                self.summary[idstr] = linesplit[5]
 
         # HEADERS (self.headers)
 
