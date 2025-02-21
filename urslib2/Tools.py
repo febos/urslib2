@@ -277,6 +277,8 @@ def CIFrestype(params):
 
     RNAS  = {'L-RNA LINKING':1, 'RNA LINKING':1,'RNA OH 3 PRIME TERMINUS':1}
 
+    DNAS  = {'DNA LINKING':1, 'DNA OH 5 PRIME TERMINUS':1} 
+
     if typ.upper() in ('NON-POLYMER','SACCHARIDE','PEPTIDE-LIKE','D-SACCHARIDE','L-SACCHARIDE',
                        'D-SACCHARIDE, ALPHA LINKING','D-SACCHARIDE, BETA LINKING',
                        'L-SACCHARIDE, BETA LINKING'):
@@ -285,7 +287,7 @@ def CIFrestype(params):
         else:               return 'Unknown'
     else:
         if   typ.upper() in  RNAS      : return 'RNA'
-        elif typ.upper()=='DNA LINKING': return 'DNA'
+        elif typ.upper() in  DNAS      : return 'DNA'
         elif typ.upper() in Proteins   : return 'Protein'
         else:
             print('"%s" is inappropriate type of residue'%typ)
