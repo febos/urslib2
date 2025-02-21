@@ -360,9 +360,13 @@ def Sign(presign):
     for i in presign:
         if abs(int(i)) not in Set: Set.append(abs(int(i)))
 
+    if len(Set) > len(alphabet):
+        print("WARNING: too many levels in a signature observed: {} > {}".format(len(Set),
+                                                                                 len(alphabet)))
+        
     for i in range(0,len(Set)):
-        alter[Set[i]]  = alphabet[i]
-        alter[-Set[i]] = alphabet[i].upper()
+        alter[Set[i]]  = alphabet[i%len(alphabet)]
+        alter[-Set[i]] = alphabet[i%len(alphabet)].upper()
 
     sign = []
 
@@ -399,14 +403,26 @@ def Ecfs(word):
     return sorted(ecfs,key = lambda x: x[0])
 
 def Brackets(seq):
-    
+
     diagram = seq[:]
-    dic = {'(':1,'[':2,'{':3,'<':4,'!':5,'C':6,'6':7}
-    left  = ('(','[','{','<','!','C','6')
-    right = (')',']','}','>','?','D','9')
+    dic = {'(':1,'[':2,'{':3,'<':4,'A':5,'B':6,'C':7,'D':8,
+           'E':9,'F':10,'G':11,'H':12,'I':13,'J':14,'K':15,
+           'L':16,'M':17,'N':18,'O':19,'P':20,'Q':21,'R':22,'S':23,
+           'T':24,'U':25,'V':26,'W':27,'X':28,'Y':29,'Z':30,'Б':31,
+           'Г':32,'Д':33,'Ж':34,'З':35,}
+    left  = ('(','[','{','<','A','B','C','D','E',
+             'F','G','H','I','J','K','L','M','N','O',
+             'P','Q','R','S','T','U','V','W','X','Y',
+             'Z','Б','Г','Д','Ж','З',)
+    right = (')',']','}','>','a','b','c','d','e',
+             'f','g','h','i','j','k','l','m','n','o',
+             'p','q','r','s','t','u','v','w','x','y',
+             'z','б','г','д','ж','з',)
 
     qes = list_to_dict(seq)
     opened  = []
+
+    maxlevel = 0
    
     for i in range(len(seq)):
         
@@ -421,17 +437,22 @@ def Brackets(seq):
             for num in opened:
 
                 j0 = qes[-num]
+                if j > j0 and diagram[j0] == right[min(level,len(dic)-1)]:
+                    level += 1
+                    if level > maxlevel:
+                        maxlevel = level
 
-                if j > j0 and diagram[j0] == right[level]: level += 1
-
-            diagram[i] = left[level]
-            diagram[j] = right[level]
+            diagram[i] = left[min(level,len(dic)-1)]
+            diagram[j] = right[min(level,len(dic)-1)]
             opened.append(seq[i])
             # sorting in order of increasing of brackets level
             opened = sorted(opened, key = lambda x: dic[diagram[qes[x]]])
 
         else: opened.remove(-seq[i])            
-    
+
+    if maxlevel > len(dic) - 1:
+        print("WARNING: too many levels observed in the dot-bracket: {} > {}".format(maxlevel,
+                                                                                     len(dic)))
 
     return ''.join(diagram)
 
