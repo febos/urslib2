@@ -127,7 +127,11 @@ def NN_Platform(model):
     plats = []
 
     for bp in model.bpairs:
-    
+
+        if bp['NUCL2'][0] not in model.dssrnucls:
+            continue
+        if bp['NUCL1'][0] not in model.dssrnucls:
+            continue    
         ch1,pl1,i1 = model.dssrnucls[bp['NUCL1'][0]]
         ch2,pl2,i2 = model.dssrnucls[bp['NUCL2'][0]]
 
