@@ -76,6 +76,8 @@ def ModifyStemsLoops(model): #add neighbors to stems and loops + add list 'LOOPS
 
 def NuclSS(self,dssr):
 
+    if dssr not in self.dssrnucls:
+        return 'NA'
     ch,pl,i = self.dssrnucls[dssr]
     if self.chains[ch][pl][i]['WING']:
 
@@ -105,6 +107,11 @@ def NuclSS(self,dssr):
     
 
 def NuclRelation(self,dssr1,dssr2): # dssr1,dssr2 -> SM/LC/NR/LR/NA
+
+    if dssr1 not in self.dssrnucls:
+        return 'NA'
+    if dssr2 not in self.dssrnucls:
+        return 'NA'
 
     ch1,pl1,i1 = self.dssrnucls[dssr1]
     ch2,pl2,i2 = self.dssrnucls[dssr2]
