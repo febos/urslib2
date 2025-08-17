@@ -597,6 +597,11 @@ class Model():
         # Residue Types (self.residues) - mmcif._chem_comp  ; liglist + metlist
         liglist,metlist = [],[]
 
+        if "_chem_comp" not in self.mmcif_dict and "_chem_comp.id" in self.mmcif_dict:
+            self.mmcif_dict["_chem_comp"] = [['id','type','name'],[self.mmcif_dict['_chem_comp.id'],
+                                                                   self.mmcif_dict['_chem_comp.type'],
+                                                                   self.mmcif_dict['_chem_comp.name']]]
+
         if '_chem_comp' in self.mmcif_dict:
 
             ind0 = self.mmcif_dict['_chem_comp'][0].index('id')
