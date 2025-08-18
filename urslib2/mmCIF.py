@@ -157,12 +157,12 @@ class Model():
 
         def CleanText(text):
             text = text.replace('&&&&&',' ')
-            if text[0]==text[-1]=="'": text = text[1:-1]
-            if text[0]==text[-1]=='"': text = text[1:-1]
+            if text[0]==text[-1]=="'" and len(text) > 1: text = text[1:-1]
+            if text[0]==text[-1]=='"' and len(text) > 1: text = text[1:-1]
             while text[0]  in (' ','_',';'): text = text[1:]
             while text[-1] in (' ','_',';'): text = text[:-1]
-            if text[0]==text[-1]=="'": text = text[1:-1]
-            if text[0]==text[-1]=='"': text = text[1:-1]
+            if text[0]==text[-1]=="'" and len(text) > 1: text = text[1:-1]
+            if text[0]==text[-1]=='"' and len(text) > 1: text = text[1:-1]
             return text
 
         #headers.DATE
