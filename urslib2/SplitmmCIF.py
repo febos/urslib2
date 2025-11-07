@@ -29,7 +29,6 @@ def Into_models(filepath, outfolder, m1only = False):
         outfolder += '/'    
     
     with open(filepath, 'r') as ciffile:
-
         hat = True # True - we are stil in headers (before ATOM/HETATM lines)
         current = -1
         can = False
@@ -39,7 +38,7 @@ def Into_models(filepath, outfolder, m1only = False):
 
             if can and line[0] == '#': can = False
             if line.startswith('_atom_site.'):
-                atom_rows.append(line[:-2])
+                atom_rows.append(line.strip())
                 can = True
 
             if can and not line.startswith('_atom_site.'):
